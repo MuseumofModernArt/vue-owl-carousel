@@ -1,35 +1,37 @@
 const webpack = require('webpack');
-const merge = require('webpack-merge');
+const {merge} = require('webpack-merge');
 const path = require('path');
+const TerserPlugin = require('terser-webpack-plugin');
+const {VueLoaderPlugin} = require('vue-loader');
 
 const config = {
   output: {
     path: path.resolve(__dirname + '/dist/'),
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
-        loader: 'babel',
+        loader: 'babel-loader',
         include: __dirname,
         exclude: /node_modules/,
       },
       {
         test: /\.vue$/,
-        loader: 'vue',
+        loader: 'vue-loader',
       },
       {
         test: /\.css$/,
-        loaders: [
+        use: [
           'vue-style-loader',
           'css-loader',
         ],
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]?[hash]',
+        type: 'asset/resource',
+        generator: {
+          filename: '[name].[ext]?[contenthash]',
         },
       },
     ],
@@ -37,18 +39,25 @@ const config = {
   externals: {
     moment: 'moment',
   },
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          sourceMap: false,
+          mangle: true,
+          compress: {
+            warnings: false,
+          },
+        },
+      }),
+    ],
+  },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      minimize: true,
-      sourceMap: false,
-      mangle: true,
-      compress: {
-        warnings: false,
-      },
-    }),
+    new VueLoaderPlugin(),
     new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
+      '$': 'jquery',
+      'jQuery': 'jquery',
       'window.jQuery': 'jquery',
     }),
   ],

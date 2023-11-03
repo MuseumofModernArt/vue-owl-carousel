@@ -2,7 +2,7 @@ module.exports = {
   root: true,
   extends: ['plugin:vue/recommended', 'google'],
   parserOptions: {
-    parser: 'babel-eslint',
+    parser: '@babel/eslint-parser',
     sourceType: 'module',
   },
   rules: {
