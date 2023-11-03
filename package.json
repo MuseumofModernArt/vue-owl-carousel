@@ -51,7 +51,8 @@
     "url": "git+https://github.com/s950329/vue-owl-carousel.git"
   },
   "scripts": {
-    "build": "webpack --config ./webpack.config.js --mode production"
+    "build": "webpack --config ./webpack.config.js --mode production",
+    "release": "./bin/release.sh"
   },
   "browserslist": [
     "last 3 versions"
