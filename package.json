@@ -1,7 +1,7 @@
 {
   "name": "vue-owl-carousel",
   "description": "VueJS wrapper for Owl Carousel",
-  "version": "3.0.3-moma",
+  "version": "3.0.0-moma",
   "author": {
     "name": "Leo Chien <s950329@gmail.com>"
   },
